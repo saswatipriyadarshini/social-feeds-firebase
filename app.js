@@ -25,9 +25,24 @@ function renderPosts(doc){
 	userPost.appendChild(li);
 
 }
-
+//getting data from the datasbase
 db.collection('posts').get().then((snapshot) => {
 	snapshot.docs.forEach(doc => {
 		renderPosts(doc);
 	});
 });
+
+//saving data
+form.addEventListener('submit', (e) => {
+	e.preventDefault();
+	db.collection('posts').add({
+		 title: form.title.value,
+		 name: form.name.value,
+		 post: form.post.value
+	});
+	form.title.value = "";
+	form.name.value = "";
+	form.post.value = "";
+
+	$('#add-post-modal').hide();
+});	

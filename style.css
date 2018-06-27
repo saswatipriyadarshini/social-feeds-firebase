@@ -1,3 +1,15 @@
 #ex1{
 	display: hide;
 }
+#new-post-form{
+	background-color: #fff;
+	height: 200px !important;
+	margin-top: 20px;
+	width: 200px;
+}
+#new-post-form input{
+	display: block;
+	margin-top: 10px;
+
+}
+}
