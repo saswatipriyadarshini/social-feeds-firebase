@@ -1,3 +1,44 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const userPost = document.querySelector('#user-posts');
 const form = document.querySelector('#new-post-form');
 
