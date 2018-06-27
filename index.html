@@ -12,6 +12,28 @@
 </head>
 <body>
 
+	<dialog id="loginDialog" class="mdl-dialog">
+    <h4 class="mdl-dialog__title">Sign In</h4>
+    <div class="mdl-dialog__content">
+      <form id="form-login">
+        <p id="loginError"></p>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input class="mdl-textfield__input" type="text" id="loginEmail">
+          <label class="mdl-textfield__label" for="sample3">Email</label>
+        </div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input class="mdl-textfield__input" type="password" id="loginPassword">
+          <label class="mdl-textfield__label" for="sample3">Password</label>
+        </div>
+      </div>
+      <div class="mdl-dialog__actions">
+        <button id="loginBtn" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Sign In </button>
+      </div>  
+      <div id="loginProgress" class="mdl-spinner mdl-js-spinner is-active"></div>
+    </form>
+  </dialog>
+
+
 	<div id="add-post-modal" class="modal">
 	  <h6 class="mdl-dialog__title">What's On Your Mind!</h4>
       <form id="new-post-form">
@@ -23,7 +45,7 @@
 	</div>
 
 	<!-- my-profile button content-->
-	<!-- <div id="my-profile-modal" class="modal"> -->
+
 		<div id="my-profile-modal" class="modal demo-card-square mdl-card mdl-shadow--2dp">
 		  <div class="mdl-card__title">
     		<img src="./pic.jpg">
@@ -37,11 +59,10 @@
 		    </a>
 		  </div>
 		</div>
-	<!-- </div> -->
 
 	<!-- navbar main -->
 
-	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+	<div id="main-content" class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
 	  <header class="mdl-layout__header">
 	    <div class="mdl-layout__header-row">
 	      <!-- Title -->
@@ -51,15 +72,13 @@
 	      <!-- Navigation. We hide it in small screens. -->
 	      <nav class="mdl-navigation mdl-layout--large-screen-only">
 	        <a class="mdl-navigation__link" href="#add-post-modal"	rel="modal:open"><i class="fas fa-plus"></i>&nbsp;Add New Post</a>
-	        <a class="mdl-navigation__link" href="">Sign Out</a>
-	        
+	        <a class="mdl-navigation__link" href="">Sign Out</a>       
 	      </nav>
 	    </div>
 	  </header>
-  <div class="mdl-layout__drawer">
+  <div id="main-drawer" class="mdl-layout__drawer">
     <span class="mdl-layout-title">User</span>
     <nav class="mdl-navigation">
-      <a class="mdl-navigation__link" href="">Link</a>
       <a class="mdl-navigation__link" href="#my-profile-modal" rel="modal:open">My-profile</a>
     </nav>
   </div>

@@ -5,6 +5,10 @@ body{
 	display: hide;
 }
 
+#main-content{
+	cursor: pointer;
+}
+
 .demo-card-wide.mdl-card {
   width: 512px;
   background-image: url('./pic.jpg');
@@ -67,4 +71,8 @@ li #deleteBtn{
 	border: #e2434b;
 	color: #fff;
 	float: right;
+	cursor: pointer;
+}
+#loginProgress{
+	display: none;
 }

@@ -1,14 +1,35 @@
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    // User is signed in.
+  } else {
+    // No user is signed in.
+    var dialog = document.querySelector('#loginDialog');
+    if (! dialog.showModal) {
+      dialogPolyfill.registerDialog(dialog);
+    }
+    dialog.showModal();
+  }
+});
 
 
 
+$("loginBtn").click(function(){
+	var email = $('#loginEmail').val()
+	var password = $('#loginPassword').val();
 
+	if(email !== ""  &&  password !== ""){
+		$('#loginProgress').show();
+		$('#loginBtn').hide();
 
+		firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+			var errorCode = error.code;
+      var errorMessage = error.message;
 
-
-
-
-
-
+      $('#loginProgress').hide();
+      $('#loginBtn').show();
+		}
+	}
+});
 
 
 
