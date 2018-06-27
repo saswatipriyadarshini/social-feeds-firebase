@@ -6,10 +6,61 @@
 	<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.teal-red.min.css" />
 	<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 	<link rel="stylesheet" type="text/css" href="./style.css">
 </head>
 <body>
 
+	<div id="add-post-modal" class="modal">
+	  <h6 class="mdl-dialog__title">What's On Your Mind</h4>
+      <form id="new-post">
+	      <div>
+	        <input type="text" name="title" placeholder="title">
+	      </div>
+	      <input type="text" name="post">
+	      <div class="mdl-dialog__actions">
+	        <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Save</button>
+	        <button type="button" class="mdl-button close mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Delete</button>
+	      </div>
+	    </form>
+	  <a href="#" rel="modal:close">Close</a>
+	</div>
+
+	<!-- my-profile button content-->
+	<div id="my-profile-modal" class="modal">
+	  <h6 class="mdl-dialog__title">Name</h4>
+	  <a href="#" rel="modal:close">Close</a>
+	</div>
+
+	<!-- navbar main -->
+
+	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+  <header class="mdl-layout__header">
+    <div class="mdl-layout__header-row">
+      <!-- Title -->
+      <span class="mdl-layout-title">Title</span>
+      <!-- Add spacer, to align navigation to the right -->
+      <div class="mdl-layout-spacer"></div>
+      <!-- Navigation. We hide it in small screens. -->
+      <nav class="mdl-navigation mdl-layout--large-screen-only">
+        <a class="mdl-navigation__link" href="#add-post-modal"	rel="modal:open"><i class="fas fa-plus"></i>&nbsp;Add New Post</a>
+        <a class="mdl-navigation__link" href="">Sign Out</a>
+        
+      </nav>
+    </div>
+  </header>
+  <div class="mdl-layout__drawer">
+    <span class="mdl-layout-title">User</span>
+    <nav class="mdl-navigation">
+      <a class="mdl-navigation__link" href="">Link</a>
+      <a class="mdl-navigation__link" href="#my-profile-modal" rel="modal:open">My-profile</a>
+    </nav>
+  </div>
+  <main class="mdl-layout__content">
+    <div class="page-content"><!-- Your content goes here --></div>
+  </main>
+</div>
 
 
 
