@@ -1,3 +1,6 @@
+body{
+	background: #eee;
+}
 #ex1{
 	display: hide;
 }
@@ -12,4 +15,41 @@
 	margin-top: 10px;
 
 }
+ul {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+li {
+	padding: 20px;
+	height: 200px;
+	width: 500px;
+	margin-left: 405px;
+	margin-top: 5px;
+	background: #fff;
+	border-radius: 5px;
+}
+li #title{
+	font-size: 23px;
+	margin-top: 0;
+}
+li #user-name {
+	color: blue;
+	top: 30px;
+
+}
+li #user-post{
+	font-size: 17px;
+	font-family: ubuntu;
+	background: #f0f3f3;
+}
+li #deleteBtn{
+	background: #e2434b;
+	height: 30px;
+	width: 90px;
+	border-radius: 3px;
+	border: #e2434b;
+	color: #fff;
+	float: right;
+	margin-top: 30px;
 }
