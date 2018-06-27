@@ -14,11 +14,12 @@
 
 	<div id="add-post-modal" class="modal">
 	  <h6 class="mdl-dialog__title">What's On Your Mind</h4>
-      <form id="new-post">
+      <form id="new-post-form">
 	      <div>
 	        <input type="text" name="title" placeholder="title">
 	      </div>
-	      <input type="text" name="post">
+	      <div><input type="text" name="name" placeholder="name"></div>
+	      <input type="text" name="post" placeholder="post">
 	      <div class="mdl-dialog__actions">
 	        <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Save</button>
 	        <button type="button" class="mdl-button close mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Delete</button>
@@ -36,20 +37,20 @@
 	<!-- navbar main -->
 
 	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-  <header class="mdl-layout__header">
-    <div class="mdl-layout__header-row">
-      <!-- Title -->
-      <span class="mdl-layout-title">Title</span>
-      <!-- Add spacer, to align navigation to the right -->
-      <div class="mdl-layout-spacer"></div>
-      <!-- Navigation. We hide it in small screens. -->
-      <nav class="mdl-navigation mdl-layout--large-screen-only">
-        <a class="mdl-navigation__link" href="#add-post-modal"	rel="modal:open"><i class="fas fa-plus"></i>&nbsp;Add New Post</a>
-        <a class="mdl-navigation__link" href="">Sign Out</a>
-        
-      </nav>
-    </div>
-  </header>
+	  <header class="mdl-layout__header">
+	    <div class="mdl-layout__header-row">
+	      <!-- Title -->
+	      <span class="mdl-layout-title">Title</span>
+	      <!-- Add spacer, to align navigation to the right -->
+	      <div class="mdl-layout-spacer"></div>
+	      <!-- Navigation. We hide it in small screens. -->
+	      <nav class="mdl-navigation mdl-layout--large-screen-only">
+	        <a class="mdl-navigation__link" href="#add-post-modal"	rel="modal:open"><i class="fas fa-plus"></i>&nbsp;Add New Post</a>
+	        <a class="mdl-navigation__link" href="">Sign Out</a>
+	        
+	      </nav>
+	    </div>
+	  </header>
   <div class="mdl-layout__drawer">
     <span class="mdl-layout-title">User</span>
     <nav class="mdl-navigation">
@@ -57,8 +58,13 @@
       <a class="mdl-navigation__link" href="#my-profile-modal" rel="modal:open">My-profile</a>
     </nav>
   </div>
+
+  <!-- Maini content -->
   <main class="mdl-layout__content">
-    <div class="page-content"><!-- Your content goes here --></div>
+    <div class="page-content">
+    	<!-- Your content goes here -->
+    	<ul id="user-posts"></ul>	
+   	</div>
   </main>
 </div>
 
@@ -78,6 +84,8 @@
     messagingSenderId: "613909243964"
   };
   firebase.initializeApp(config);
+  var db = firebase.firestore();
+  db.settings({ timestampsInSnapshots: true});
 </script>
 <script type="text/javascript" src="./app.js"></script>
 </body>
