@@ -1,69 +1,87 @@
 firebase.auth().onAuthStateChanged(function(user) {
+	var modal = document.getElementById('modal-signin');
   if (user) {
+  	console.log("User Logged In");
     // User is signed in.
+    modal.close();
+
+    $('#btn-add-post').show();
+    $('#btn-signout').show();
+    $('#user-posts').show();
+    fetchPosts();
+
   } else {
-    // No user is signed in.
-    var dialog = document.querySelector('#loginDialog');
-    if (! dialog.showModal) {
-      dialogPolyfill.registerDialog(dialog);
-    }
-    dialog.showModal();
+  	console.log("User NOT Logged In");
+    
+    modal.showModal();
+    var button = $(modal).find('#btn-signin');
+    $(button).attr('disabled', false);
+
+    $('#btn-add-post').hide();
+    $('#btn-signout').hide();
+    $('#user-posts').hide();
   }
 });
 
 
-
-$("loginBtn").click(function(){
-	var email = $('#loginEmail').val()
-	var password = $('#loginPassword').val();
+//Log In
+$("#form-login").on("submit", function(e){
+	e.preventDefault();
+	var form = this;
+	var email = $(form).find('#input-email').val()
+	var password = $(form).find('#input-password').val();
 
 	if(email !== ""  &&  password !== ""){
-		$('#loginProgress').show();
-		$('#loginBtn').hide();
+
+		var button = $(form).find('#btn-signin');
+		$(button).attr('disabled', true);
 
 		firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+
+			$(button).attr('disabled', false);
 			var errorCode = error.code;
       var errorMessage = error.message;
 
-      $('#loginProgress').hide();
-      $('#loginBtn').show();
-		}
+		});
 	}
 });
 
 
+$('#btn-signout').click(function(e){
+	e.preventDefault();
+	firebase.auth().signOut().then(function(){
+		console.log("Singed out");
+	}); 
+});
 
+$('#btn-my-profile').click(function(e){
+	e.preventDefault();
 
+	//Hide drawer
+	var drawer = document.querySelector('.mdl-layout');
+  drawer.MaterialLayout.toggleDrawer();
+	let modal = document.getElementById('modal-my-profile');
+	modal.showModal();
+	modal.querySelector('.close').addEventListener('click', function() {
+    modal.close();
+  });
+});
 
+$('#btn-add-post').click(function(e){
+	e.preventDefault();
+	let modal = document.getElementById('modal-add-post');
+	modal.showModal();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	modal.querySelector('.close').addEventListener('click', function() {
+    modal.close();
+  });
+});
 
 
 const userPost = document.querySelector('#user-posts');
 const form = document.querySelector('#new-post-form');
 
-function renderPosts(doc){
+function renderPost(doc){
 	let li = document.createElement('li');
 	let title = document.createElement('h3')
 	let name = document.createElement('span');
@@ -94,7 +112,7 @@ function renderPosts(doc){
 		let id = e.target.parentElement.getAttribute('data-id');
 		db.collection('posts').doc(id).delete();
 	});
-
+	fetchPosts();
 }
 //getting data from the datasbase
 // db.collection('posts').get().then((snapshot) => {
@@ -104,31 +122,39 @@ function renderPosts(doc){
 // });
 
 //saving data
-form.addEventListener('submit', (e) => {
+$('#form-add-post').on('submit', function(e){
 	e.preventDefault();
-	db.collection('posts').add({
-		 title: form.title.value,
-		 name: form.name.value,
-		 post: form.post.value
-	});
-	form.title.value = "";
-	form.name.value = "";
-	form.post.value = "";
+	var form = this;
+	var title = $(form).find('#input-title').val();
+	var name = $(form).find('#input-name').val();
+	var post = $(form).find('#input-post').val();
 
-	$('#add-post-modal').hide();
-});	
+	db.collection('posts').add({
+		title: title,
+		name: name,
+		post: post
+	});
+	let modal = document.getElementById('modal-add-post');
+	modal.close();
+
+	fetchPosts();
+});
+	
 
 //realtime listener
-db.collection('posts').orderBy('name').onSnapshot(snapshot => {
-	let changes = snapshot.docChanges();
-	changes.forEach(change => {
-		console.log(change.doc.data());
-		if(change.type == 'added'){
-			renderPosts(change.doc);
-		} else if (change.type == 'removed'){
-			let li = userPost.querySelector('[data-id=' + change.doc.id + ']');
-			userPost.removeChild(li);
-		}
-	})
-	
-});
+function fetchPosts(){
+	db.collection('posts').orderBy('name').onSnapshot(snapshot => {
+		let changes = snapshot.docChanges();
+		$('#user-posts').html("");
+		changes.forEach(change => {
+			console.log(change.doc.data());
+			if(change.type == 'added'){
+				renderPost(change.doc);
+			} else if (change.type == 'removed'){
+				let li = userPost.querySelector('[data-id=' + change.doc.id + ']');
+				userPost.removeChild(li);
+			}
+		})
+		
+	});
+}
